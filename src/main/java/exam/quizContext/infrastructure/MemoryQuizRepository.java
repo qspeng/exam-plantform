@@ -5,26 +5,25 @@ import exam.quizContext.domain.model.blankQuiz.QuizId;
 import exam.quizContext.domain.model.blankQuiz.QuizRepository;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Component
 public class MemoryQuizRepository implements QuizRepository {
-    private Set<Quiz> quizzes = new HashSet<>();
+    private final Set<Quiz> quizzes = new HashSet<>();
 
     @Override
     public Quiz find(QuizId quizId) {
         return quizzes.stream()
                 .filter(quiz -> quiz.getQuizId().equals(quizId))
                 .findFirst()
-                .orElseThrow(NullPointerException::new);
+                .orElseThrow(() -> new QuizNotFoundException("Quiz not found!"));
     }
 
     @Override
     public void save(Quiz quiz) {
+        quizzes.stream()
+                .filter(existQuiz -> existQuiz.equals(quiz))
+                .findFirst().map(existQuiz -> quizzes.remove(existQuiz));
         quizzes.add(quiz);
     }
 
@@ -35,7 +34,7 @@ public class MemoryQuizRepository implements QuizRepository {
 
     @Override
     public List<Quiz> getAll() {
-        return quizzes.stream().collect(Collectors.toList());
+        return new ArrayList<>(quizzes);
     }
 
     @Override
