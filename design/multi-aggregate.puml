@@ -3,7 +3,7 @@
 
 package paper <<Aggregate>> {
     class Paper <<Aggregate Root>> {
-        paperId: PaperId
+        quizId: PaperId
         createTime: DateTime
         teacherId: String
         {static} assemble()
@@ -29,7 +29,7 @@ package "examination" <<Aggregate>> {
         }
 
         class "Paper" as p2 <<Value Object>>{
-            paperId: String
+            quizId: String
         }
 
         interface "Quiz" as q2 <<Value Object>>{

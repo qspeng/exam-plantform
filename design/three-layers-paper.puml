@@ -10,7 +10,7 @@ package threeLayer {
 
 
     class Paper {
-        paperId: PaperId
+        quizId: PaperId
         quizzes: List<Quiz>
     }
 

@@ -1,0 +1,94 @@
+@startuml
+
+
+package examination <<Aggregate>>{
+    class Examination <<AggregateRoot>> {
+        ExaminationID id
+        Paper paper
+        Date startDate
+        Date endDate
+        Date duration
+        Float passRate
+        String teacherId
+        +create() : Examination
+        +checkPaper()
+    }
+
+    class ExamPaper <<Value Object>> {
+        List<ExamBlankQuiz> quizs
+        +create() : ExamPaper
+        +view()
+        +update() : ExamPaper
+    }
+
+    class ExamBlankQuiz <<Value Object>> {
+        Int number
+        Int score
+    }
+
+    Examination "1" *--> "1" ExamPaper
+    ExamPaper "1" *--> "5..20" ExamBlankQuiz
+}
+
+package course <<Aggregate>> {
+    class Course <<AggregateRoot>> {
+        String videoFolder
+        Examination exam
+        String name
+        +publish()
+    }
+
+    Course "1" *--> "1" Examination
+}
+
+package paper <<Aggregate>>{
+    class Paper <<AggregateRoot>>  {
+            PaperId id
+            Course course
+            List<BlankQuiz> quizs
+            +create() : Paper
+            +view()
+            +update() : Paper
+    }
+
+    Paper "1" *--> Course
+
+}
+
+package answer_sheet <<Aggregate>>{
+    class AnswerSheet <<AggregateRoot>> {
+        AnswerSheetId id
+        Examination exam
+        String studentId
+        List<String> answers
+        +scores()
+    }
+
+
+    AnswerSheet "N" *--> "1" Examination
+}
+
+package certification <<Aggregate>>{
+    class Certification <<AggregateRoot>> {
+        CertificationId id
+        Examination exam
+        String content
+        +create() : Certification
+    }
+
+    Certification "1"  *--> "1" Examination
+}
+
+package quiz <<Aggregate>>{
+    class BlankQuiz <<AggregateRoot>> {
+        QuizId id
+        String quiz
+        String answer
+        +create() : BlankQuiz
+        +updateQuiz() : BlankQuiz
+        +deleteQuiz() : BlankQuiz
+    }
+    Paper "1" *--> "5..20" BlankQuiz
+}
+
+@enduml

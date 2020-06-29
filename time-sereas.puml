@@ -1,0 +1,15 @@
+@startuml
+
+User -> UserInterface:map input
+UserInterface -> ApplicationService:use command to interact
+ApplicationService -> Domain:business flow
+Domain -> Entity: entity logic
+Domain -> DomainService: domain logic
+Domain -> DomainRepository: domain logic
+Domain -> ApplicationService: interactive results
+ApplicationService -> UserInterface: map output
+UserInterface -> User: output
+
+Infrastructure -> DomainRepository: implements
+
+@enduml

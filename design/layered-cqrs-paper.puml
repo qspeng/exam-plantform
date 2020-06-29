@@ -8,7 +8,7 @@ package layeredArch {
     }
 
     class "Paper" as od {
-        paperId: PaperId
+        quizId: PaperId
         quizzes: List<Quiz>
         assemble()
     }
