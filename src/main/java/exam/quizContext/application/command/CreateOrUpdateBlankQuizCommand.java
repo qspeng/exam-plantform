@@ -2,16 +2,13 @@ package exam.quizContext.application.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Value;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class CreateOrUpdateQuizCommand {
+public class CreateOrUpdateBlankQuizCommand {
     @NotNull
     private String question;
     @NotNull

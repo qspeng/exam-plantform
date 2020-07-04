@@ -6,16 +6,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Objects;
-import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
-public class QuizId implements ValueObject<QuizId> {
+public class BlankQuizId implements ValueObject<BlankQuizId> {
     private String id;
 
-    public static QuizId of(String id) {
+    public static BlankQuizId of(String id) {
         assert !Strings.isNullOrEmpty(id);
-        return new QuizId(id);
+        return new BlankQuizId(id);
     }
 
     public String getId() {
@@ -26,8 +25,8 @@ public class QuizId implements ValueObject<QuizId> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        QuizId quizId = (QuizId) o;
-        return Objects.equals(getId(), quizId.getId());
+        BlankQuizId blankQuizId = (BlankQuizId) o;
+        return Objects.equals(getId(), blankQuizId.getId());
     }
 
     @Override
@@ -36,7 +35,7 @@ public class QuizId implements ValueObject<QuizId> {
     }
 
     @Override
-    public boolean sameValueAs(QuizId other) {
+    public boolean sameValueAs(BlankQuizId other) {
         return equals(other);
     }
 }
